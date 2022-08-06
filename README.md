@@ -1,24 +1,34 @@
-<img src=https://d1r5llqwmkrl74.cloudfront.net/notebooks/fsi/fs-lakehouse-logo-transparent.png width="600px">
+## Real-Time Bidding
 
-[![DBR](https://img.shields.io/badge/DBR-10.4ML-red?logo=databricks&style=for-the-badge)](https://docs.databricks.com/release-notes/runtime/10.4ml.html)
-[![CLOUD](https://img.shields.io/badge/CLOUD-ALL-blue?logo=googlecloud&style=for-the-badge)](https://cloud.google.com/databricks)
-[![POC](https://img.shields.io/badge/POC-10_days-green?style=for-the-badge)](https://databricks.com/try-databricks)
+**Use Case Overview**
 
-*Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.*
+Real-time bidding (**RTB**): is a subcategory of programmatic media buying. RTB firms established the technology of buying and selling ads in real time (~ 10ms ) in an instant auction, on a per-impression basis.
 
-___
-<john.doe@databricks.com>
+* The selling-buying cycle includes: publishers, a supply-side platform (SSP) or an ad exchange, a demand-side platform (DSP), and advertisers
+* The value of RTB is that it creates greater transparency for both publishers and advertisers in the the ad market: 
+  * Publishers can better control their inventory and CPMs (cost per 1000 ad impressions) 
+  * Advertisers that leverage RTB can boost advertising effectiveness by only bidding on impressions that are likely to be **viewed** by a given user.
 
-___
+**Viewability** is a metric that measures whether or not an ad was actually seen by a user. This gives marketers a more precise measurement about whether or not their message appeared to users in a visible way.
+* In this Databricks demo, we demonstrate a process to predict viewability using BidRequest Data. Keep in mind, the more likely users are to see an ad, the higher the price a DSPs will want to place on a bid for that ad, because it is ultimately more valueable to the advertiser.
+* By building a reliable, scalable, and efficient pipeline to predict viewability, advertisers can more accurately identify where to spend their marketing budgets to fine-tune media spend, improve ROI, and enhance campaign effectiveness.
 
 
-IMAGE TO REFERENCE ARCHITECTURE
+We'll implement the following data pipeline for RTB:
+
+<img src="https://github.com/QuentinAmbard/databricks-demo/raw/main/media/resources/images/rtb-pipeline-dlt.png" width="1000"/>
+
 
 ___
 
 &copy; 2022 Databricks, Inc. All rights reserved. The source in this notebook is provided subject to the Databricks License [https://databricks.com/db-license-source].  All included or referenced third party libraries are subject to the licenses set forth below.
 
-| library                                | description             | license    | source                                              |
-|----------------------------------------|-------------------------|------------|-----------------------------------------------------|
-| PyYAML                                 | Reading Yaml files      | MIT        | https://github.com/yaml/pyyaml                      |
-
+|Library Name|Library license | Library License URL | Library Source URL |
+|---|---|---|---|
+|pandas|BSD 3-Clause License|https://github.com/pandas-dev/pandas/blob/main/LICENSE|https://github.com/pandas-dev/pandas|
+|hyperopt|BSD License (BSD)|https://github.com/hyperopt/hyperopt/blob/master/LICENSE.txt|https://github.com/hyperopt/hyperopt|
+|xgboost|Apache License 2.0|https://github.com/dmlc/xgboost/blob/master/LICENSE|https://github.com/dmlc/xgboost|
+|scikit-learn|BSD 3-Clause "New" or "Revised" License|https://github.com/scikit-learn/scikit-learn/blob/main/COPYING|https://github.com/scikit-learn/scikit-learn|
+|mlflow|Apache-2.0 License |https://github.com/mlflow/mlflow/blob/master/LICENSE.txt|https://github.com/mlflow/mlflow|
+|Python|Python Software Foundation (PSF) |https://github.com/python/cpython/blob/master/LICENSE|https://github.com/python/cpython|
+|Spark|Apache-2.0 License |https://github.com/apache/spark/blob/master/LICENSE|https://github.com/apache/spark|
