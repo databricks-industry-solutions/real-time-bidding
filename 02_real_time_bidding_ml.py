@@ -25,7 +25,7 @@
 # DBTITLE 1,Create train and test data sets
 features =['device_w','device_connectiontype','device_devicetype','device_lat','imp_bidfloor']
 
-df = spark.table('field_demos_media.rtb_dlt_bids_gold').toPandas()
+df = spark.table('SOLACC_rtb_lite.rtb_dlt_bids_gold').toPandas()
 X_train, X_test, y_train, y_test = train_test_split(df[features], df['in_view'], test_size=0.33, random_state=55)
 
 # COMMAND ----------
@@ -98,14 +98,14 @@ with mlflow.start_run(run_name='XGBClassifier') as run:
 # COMMAND ----------
 
 # DBTITLE 1,Save our new model to the registry as a new version
-model_registered = mlflow.register_model("runs:/"+run_id+"/model", "field_demos_rtb")
+model_registered = mlflow.register_model("runs:/"+run_id+"/model", "solacc_rtb")
 
 # COMMAND ----------
 
 # DBTITLE 1,Flag this version as production ready
 client = mlflow.tracking.MlflowClient()
 print("registering model version "+model_registered.version+" as production model")
-client.transition_model_version_stage(name = "field_demos_rtb", version = model_registered.version, stage = "Production", archive_existing_versions=True)
+client.transition_model_version_stage(name = "solacc_rtb", version = model_registered.version, stage = "Production", archive_existing_versions=True)
 
 # COMMAND ----------
 
@@ -131,7 +131,7 @@ client.transition_model_version_stage(name = "field_demos_rtb", version = model_
 #                                 Stage/version
 #                       Model name       |
 #                           |            |
-model_path = 'models:/field_demos_rtb/Production'
+model_path = 'models:/solacc_rtb/Production'
 predict_in_view = mlflow.pyfunc.spark_udf(spark, model_path, result_type = DoubleType())
 
 
@@ -139,7 +139,7 @@ predict_in_view = mlflow.pyfunc.spark_udf(spark, model_path, result_type = Doubl
 
 # DBTITLE 1,Perform Inference on Streaming Data
 model_features = predict_in_view.metadata.get_input_schema().input_names()
-new_df = spark.table('field_demos_media.rtb_dlt_bids_gold').select(*model_features)
+new_df = spark.table('SOLACC_rtb_lite.rtb_dlt_bids_gold').select(*model_features)
 display(
   new_df.withColumn('in_view_prediction', predict_in_view(*model_features)).filter(col('in_view_prediction') == 1)
 )
