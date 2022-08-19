@@ -24,7 +24,8 @@ from hyperopt.pyll.base import scope
 
 # COMMAND ----------
 
-# MAGIC %fs mkdirs /tmp/raw_incoming_bid_stream/
+dbutils.fs.rm("/tmp/raw_incoming_bid_stream", recurse=True)
+dbutils.fs.mkdirs("/tmp/raw_incoming_bid_stream")
 
 # COMMAND ----------
 
