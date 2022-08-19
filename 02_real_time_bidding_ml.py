@@ -25,7 +25,7 @@
 # DBTITLE 1,Create train and test data sets
 features =['device_w','device_connectiontype','device_devicetype','device_lat','imp_bidfloor']
 
-df = spark.table('SOLACC_rtb_lite.rtb_dlt_bids_gold').toPandas()
+df = spark.table('SOLACC_rtb_lite.bids_gold').toPandas()
 X_train, X_test, y_train, y_test = train_test_split(df[features], df['in_view'], test_size=0.33, random_state=55)
 
 # COMMAND ----------
@@ -139,7 +139,7 @@ predict_in_view = mlflow.pyfunc.spark_udf(spark, model_path, result_type = Doubl
 
 # DBTITLE 1,Perform Inference on Streaming Data
 model_features = predict_in_view.metadata.get_input_schema().input_names()
-new_df = spark.table('SOLACC_rtb_lite.rtb_dlt_bids_gold').select(*model_features)
+new_df = spark.table('SOLACC_rtb_lite.bids_gold').select(*model_features)
 display(
   new_df.withColumn('in_view_prediction', predict_in_view(*model_features)).filter(col('in_view_prediction') == 1)
 )
