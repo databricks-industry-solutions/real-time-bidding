@@ -67,7 +67,7 @@ def bids_bronze():
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select * from field_demos_media.rtb_dlt_bids_bronze
+# MAGIC select * from SOLACC_rtb_lite.bids_bronze
 
 # COMMAND ----------
 
@@ -90,7 +90,7 @@ def bids_device_silver():
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select * from field_demos_media.rtb_dlt_bids_device_silver
+# MAGIC select * from SOLACC_rtb_lite.bids_device_silver
 
 # COMMAND ----------
 
@@ -105,7 +105,7 @@ def bids_imp_silver():
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select * from field_demos_media.rtb_dlt_bids_imp_silver
+# MAGIC select * from SOLACC_rtb_lite.bids_imp_silver
 
 # COMMAND ----------
 
@@ -120,7 +120,7 @@ def bids_site_silver():
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select * from field_demos_media.rtb_dlt_bids_site_silver
+# MAGIC select * from SOLACC_rtb_lite.bids_site_silver
 
 # COMMAND ----------
 
@@ -147,7 +147,7 @@ def bids_gold():
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select * from field_demos_media.rtb_dlt_bids_gold
+# MAGIC select * from SOLACC_rtb_lite.bids_gold
 
 # COMMAND ----------
 
