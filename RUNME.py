@@ -63,11 +63,25 @@ job_json = {
         },
         "tasks": [
             {
+                "job_cluster_key": "rtb_lite_cluster",
+                "libraries": [],
+                "notebook_task": {
+                    "notebook_path": f"00_RTB_setup"
+                },
+                "task_key": "rtb_lite_00",
+                "description": ""
+            },
+            {
                 "pipeline_task": {
                     "pipeline_id": pipeline_id
                 },
                 "task_key": "rtb_lite_01",
-                "description": ""
+                "description": "",
+                "depends_on": [
+                    {
+                        "task_key": "rtb_lite_00"
+                    }
+                ]
             },
           {
                 "job_cluster_key": "rtb_lite_cluster",
