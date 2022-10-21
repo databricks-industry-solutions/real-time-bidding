@@ -1,4 +1,9 @@
 // Databricks notebook source
+// MAGIC %md 
+// MAGIC You may find this series of notebooks at https://github.com/databricks-industry-solutions/real-time-bidding. For more information about this solution accelerator, visit https://www.databricks.com/solutions/accelerators/real-time-bidding-optimization.
+
+// COMMAND ----------
+
 // MAGIC %md
 // MAGIC ## Real-Time Bidding
 // MAGIC 
