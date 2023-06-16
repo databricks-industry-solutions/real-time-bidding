@@ -6,17 +6,17 @@
 
 # MAGIC %md
 # MAGIC ## Real-Time Bidding - ML model to predict viewability
-# MAGIC 
+# MAGIC
 # MAGIC We previously saw how to create a DLT pipeline to ingest and prepare the data required for our model. This notebook will show how we can take this one take further and leverage this data to predict ad viewability, improving ads performance and ultimately customer aqcuisition.
-# MAGIC 
+# MAGIC
 # MAGIC ## Step 5: Train in-view classification model (Using XG Boost)
-# MAGIC 
+# MAGIC
 # MAGIC <img style="float: right; padding-left: 10px" src="https://github.com/QuentinAmbard/databricks-demo/raw/main/media/resources/images/rtb-pipeline-dlt-4.png" width="600"/>
-# MAGIC 
+# MAGIC
 # MAGIC Now that our data is analyzed, we can start building a ML model to predict viewability (the user likely to click on the ad `in_view`) using XGBoost.
-# MAGIC 
+# MAGIC
 # MAGIC We'll be leveraging hyperopt to do hyperparameter tuning and find the best set of hyperparameters for our model.
-# MAGIC 
+# MAGIC
 # MAGIC <!-- do not remove -->
 # MAGIC <img width="1px" src="https://www.google-analytics.com/collect?v=1&gtm=GTM-NKQ8TT7&tid=UA-163989034-1&cid=555&aip=1&t=event&ec=field_demos&ea=display&dp=%2F42_field_demos%2Fmedia%2Frtb%2Fnotebook_ml&dt=MEDIA_USE_CASE">
 # MAGIC <!-- [metadata={"description":"Build ML model to predict viewability.</i>", "authors":["layla.yang@databricks.com"]}] -->
@@ -44,7 +44,7 @@ def evaluate_model(params):
                             reg_lambda=int(params["reg_lambda"]),
                             max_depth=int(params["max_depth"]),
                             n_estimators=int(params["n_estimators"]),
-                            min_child_weight = params["min_child_weight"], objective='reg:linear', early_stopping_rounds=50)
+                            min_child_weight = params["min_child_weight"], objective='reg:linear')
   
   #train
   model.fit(X_train, y_train)
@@ -91,11 +91,11 @@ with mlflow.start_run(run_name='XGBClassifier') as run:
 # COMMAND ----------
 
 # MAGIC %md-sandbox 
-# MAGIC 
+# MAGIC
 # MAGIC **Why is it so great?**
-# MAGIC 
+# MAGIC
 # MAGIC <div style="float:right"><img src="https://quentin-demo-resources.s3.eu-west-3.amazonaws.com/images/tuning-2.gif" style="height: 280px; margin-left: 20px"/></div>
-# MAGIC 
+# MAGIC
 # MAGIC - Trials are automatically logged in MLFlow! It's then easy to compare all the runs and understand how each parameter play a role in the model
 # MAGIC - Job by providing a `SparkTrial` instead of the standard `Trial`, the training and tuning is automatically paralellized in your cluster
 # MAGIC - Training can easily be launched as a job and model deployment automatized based on the best model performance
@@ -116,18 +116,18 @@ client.transition_model_version_stage(name = "solacc_rtb", version = model_regis
 
 # MAGIC %md-sandbox
 # MAGIC ## Step 6: Use model to predict viewability
-# MAGIC 
+# MAGIC
 # MAGIC <img style="float: right; padding-left: 10px" src="https://github.com/QuentinAmbard/databricks-demo/raw/main/media/resources/images/rtb-pipeline-dlt-5.png" width="600"/>
-# MAGIC 
+# MAGIC
 # MAGIC Now that our model is built and saved in MLFlow registry, we can load it to run our inferences at scale.
-# MAGIC 
+# MAGIC
 # MAGIC This can be done:
-# MAGIC 
+# MAGIC
 # MAGIC * In batch or streaming (ex: refresh every night)
 # MAGIC   * Using a standard notebook job
 # MAGIC   * Or as part of the DLT pipeline we built
 # MAGIC * In real-time over a REST API, deploying Databricks serving capabilities
-# MAGIC 
+# MAGIC
 # MAGIC In the following cell, we'll focus on deploying the model in this notebook directly
 
 # COMMAND ----------
@@ -154,9 +154,9 @@ display(
 # MAGIC %md
 # MAGIC ## What's next?
 # MAGIC We now have or viewability prediction, and we'll be able to leverage this information to improve our customer aqcuisition efficiency.
-# MAGIC 
+# MAGIC
 # MAGIC As Summary, we demonstrate the Lakehouse benefits:
-# MAGIC 
+# MAGIC
 # MAGIC * How Delta Live Table can simplify data ingestion
 # MAGIC * How Databricks can use DBSQL to run BI workload on top of ingesting data 
 # MAGIC * How the same data can be used by the Data Science team to not only analyze existing data, but react and make prediction on this information
@@ -165,7 +165,7 @@ display(
 
 # MAGIC %md
 # MAGIC Copyright Databricks, Inc. [2021]. The source in this notebook is provided subject to the [Databricks License](https://databricks.com/db-license-source).  All included or referenced third party libraries are subject to the licenses set forth below.
-# MAGIC 
+# MAGIC
 # MAGIC |Library Name|Library license | Library License URL | Library Source URL |
 # MAGIC |---|---|---|---|
 # MAGIC |pandas|BSD 3-Clause License|https://github.com/pandas-dev/pandas/blob/main/LICENSE|https://github.com/pandas-dev/pandas|
